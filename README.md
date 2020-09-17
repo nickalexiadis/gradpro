@@ -1,4 +1,4 @@
-# gradpro
+# Gradpro
 While university degrees have traditionally been seen as a big step (or even a guarantee) towards of employment, in a rapidly and ever-changing workforce such beliefs are losing ground. Technological innovations are creating new higher demands of potential employees, that necessitate ever greater fluidity in regards to the choice of career itself, as well as in the knowledge and skills involved in effectively performing in (sometimes very different) types of work.
 
 In order to effectively prepare graduates for the future workforce, Skills Development Scotland (SDS) has proposed a model for certain skills – referred to as ‘meta-skills’ – that can provide a strong base for different types of work regardless of a person’s background. 
