@@ -1,0 +1,66 @@
+{%extends 'gradpro/base.html'%}
+{% load staticfiles %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 offset-md-0 centered my-auto">
+                <div class="white-text welcome">
+                    <h1 class="black_txt">Welcome to Gradpro</h1>
+                    <h2>
+                        <span class="animated-text"></span>
+                        <span class="typed-cursor"></span>
+                    </h2>
+                    <p class="black_txt">This website is for graduates(and not only) to learn about their skills and how they can be useful in the workplace</p>
+                    <a href="{% url 'gradpro:register' %}" class="btn btn-transparent" id="register"> <h2>Register</h2> </a>
+                </div>
+            </div>
+            <div class="col-md-5 offset-md-1 row-centered">
+                <div class="my-form">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <h2 class="text-center black-text">Sign in</h2>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                            </div>
+                        </div>
+                        {% if message %}
+                            <div class="bold-red form-group">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </div>
+                        <div class="clearfix">
+                            <label class="pull-left checkbox-inline black-text"><input name="remember_me" type="checkbox"> Remember me</label>
+                            <a href="#" class="pull-right">Forgot Password?</a>
+                        </div>
+                    </form>
+                    {% csrf_token %}
+                    <div class="bold-red form-group" id="errorMessage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block afterBody_block %}
+    <script src="{% static 'javascript/login.js' %}"></script>
+{% endblock %}

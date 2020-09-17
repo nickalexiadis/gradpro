@@ -1,0 +1,50 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+         {% if completed %}
+            <div class="my-form">
+                <strong>{{ completed_message }}</strong><br>
+                <a href="{% url 'gradpro:dashboard' %}">Thank you for completing the questionnaire. Return to the dashboard.</a> </br>
+            </div>
+        {% else %}
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:adaptability5' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <p>This survey asks a number of questions about your preferences, styles, and habits at work. Read each statement carefully.
+                            Then, for each statement select the corresponding number that best represents your opinion. There are no right or wrong answers. </p>
+
+                        <p> 1 = Strongly disagree</p>
+                        <p> 2 = Disagree</p>
+                        <p> 3 = Neither agree nor disagree</p>
+                        <p> 4 = Agree</p>
+                        <p> 5 = Strongly agree</p>
+                        <br>
+
+                        <hr>
+                        {{ adaptability_fifth_form.as_p }}
+
+                        <p>This survey is based on the I-ADAPT Measure, created by Robert E. Ployhart</p>
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

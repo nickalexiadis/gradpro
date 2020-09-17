@@ -1,0 +1,66 @@
+{%extends 'gradpro/base.html'%}
+{% load staticfiles %}
+
+{% block title_block %}
+    About
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <h1>About Gradpro</h1>
+    <h2 class="tlc"><strong>Test, Learn, Improve!</strong></h2>
+    <div class="container">
+        <div class="row justify-content-center p-3">
+            <p align="justify">In our rapidly changing world, graduates can expect to change their career than once
+                during their work life. As such a university degree by itself is not adequate for the flexibility that
+                will be needed in the future workforce. Lifelong learning can be made easier through the development of
+                certain "metaskills. And that is exactly what Gradpro is about. An easy-to-use web application that will
+                allow graduates or those already employed to test their metaskills, learn more about them as well as
+                receive guidance as to how to improve them.
+            </p>
+            <h3><strong>Test</strong> your skills through a variety of questionnaires</h3>
+            <p align="justify">
+                While currently focusing on giving you a general picture of certain metaskills, the addition of new
+                tests in the future will make Gradpro your first destination and hub for continuing education and self-
+                improvement
+            </p>
+        </div>
+        <div class="row justify-content-center p-3">
+            <img src="{% static 'images/about1.jpg' %}" class="img-fluid" alt="Person looking at sky"/>
+        </div>
+        <div class="row justify-content-center p-3">
+            <h3><strong>Learn</strong> something new</h3>
+        </div>
+        <div class="row justify-content-center p-3">
+            <p align="justify">
+                According to Skills Development Scotland, meta-skills are "higher order skills that create adaptive
+                learners and promote success in whatever context the future brings. These are the skills that enable
+                individuals to perform highly today;". SDC has classified these skills as: Self-Management,
+                Social Intelligence, and Innovation. Each of them can be broken down into individual skills that can be
+                cultivated in various ways.
+            </p>
+        </div>
+        <div class="row justify-content-center p-3">
+            <img src="{% static 'images/about2.jpg' %}" class="img-fluid" alt="Students"  />
+        </div>
+        <div class="row justify-content-center p-3">
+            <h3><strong>Improve</strong> your meta-skills and ensure a successful career</h3>
+            <p align="justify">
+                By testing your skills in the site, you will be able to quickly pinpoint and leverage your strong areas
+                as well as detect skills with room for improvement. Grapdro aims to be your go-to continuing education
+                hub and will be gradually adding more specialized tests, as well as offering more feedback on how to
+                improve in your desired areas.
+            </p>
+        </div>
+        <div class="row justify-content-center p-3">
+            <img src="{% static 'images/about3.jpg' %}" class="img-fluid" alt="People with laptop"  />
+        </div>
+
+        <strong><p>If you have any questions, need help or would like to see something added to Gradpro, contact us at:
+        gradpro@gmail.com</p></strong>
+    </div>
+
+{% endblock %}

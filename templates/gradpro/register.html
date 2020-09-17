@@ -1,0 +1,45 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        {% if registered %}
+            <div class="my-form">
+                <strong>{{ registered_message }}</strong><br>
+                <a href="{% url 'gradpro:login' %}">Return to the login page.</a> </br>
+            </div>
+        {% else %}
+            <div class="row centered">
+                <div class="col-md-5 offset-md-1 my-auto left">
+                    <div class="join">
+                        <h1>Join the Gradpro community</h1>
+                        <li>Learn about your skills and how they can be useful in the workforce</li>
+                        <li>Leverage your strong points, improve your weaker areas</li>
+                    </div>
+                </div>
+                <div class="col-md-5 offset-md-1 centered">
+                    <div class="my-form">
+                        <form id = "user_form" method = "post" action = " {% url 'gradpro:register' %} " enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                                <h2 class="text-center black-text">Sign Up</h2>
+                                {{ user_form.as_p }}
+
+                            <div class="form-group">
+                                <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Sign up</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

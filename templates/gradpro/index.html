@@ -1,0 +1,66 @@
+{%extends 'gradpro/base.html'%}
+{% load staticfiles %}
+
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            {% if user.is_authenticated %}
+                <div class="col-md-5 offset-md-4 row-centered">
+                    <div class="white-text welcome">
+                        <h2>Go to Dashboard</h2>
+                        <a href="{% url 'gradpro:dashboard' %}" class="btn btn-grey" id="dashboard">Dashboard</a>
+                    </div>
+                </div>
+            {% else %}
+
+                <div class="col-md-5 offset-md-4 row-centered">
+                    <div class="white-text welcome">
+                        <h2>Get started</h2>
+                        <a href="{% url 'gradpro:login' %}" class="btn btn-grey" id="login">Here</a>
+                    </div>
+                </div>
+                <div class="col-md-5 offset-md-4 row-centered">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <ul class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        </ul>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="card">
+                                    <div class="col-8">
+                                        <h4><p align="justify" class="content mb-5 mx-2">Take our tests to find out about your strengths and weaknesses</p></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card">
+                                    <div class="col-8">
+                                        <h4><p align="justify" class="content mb-5 mx-2">Receive feedback and suggestions on how to improve your metaskills in lacking areas</p></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="card">
+                                    <div class="col-8">
+                                        <h4><p align="justify" class="content mb-5 mx-2">Track your progress </p></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

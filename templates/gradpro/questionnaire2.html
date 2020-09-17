@@ -1,0 +1,79 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:questionnaire2' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                         <p> <strong><u>Social-Intelligence</u></strong></p>
+                         {% for field in social_intelligence_form %}
+                            {% if forloop.counter == 1 %}
+                                <p>Working with vast amounts of data and different levels of expertise, effective communication is vital for a data scientist.
+                                There is need for great clarity when sharing information. With increased technology, communication and story telling continue to be vital parts of job roles.</p>
+                                <p>As Skills Development Scotland shares,  "while machines can produce detailed information, there is a potential for workers to take on the role of interpreting
+                                making use of effective communication skills and story telling to bring information to life."</p>
+                        <p>Thinking about this, rate your confidence is these areas of <strong><u>communication:</u> </strong></p>
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 2%}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 3 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 4 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 5 %}
+                                    <p>Collaboration is not a new skill either but evidence suggests that its importance is increasing, with the majority of roles requiring collaboration at some level.
+                                        The way we use technology for collaboration will undoubtedly continue to evolve so we will all need to be comfortable using new technology in this way.</p>
+                                    <p>As this new technology removes distance as a barrier and we are able to work with others effectively across continents, cross cultural competence – being open to,
+                                        understanding and working within alternative cultural norms – will be essential.</p>
+                                    <p><strong><u>Collaboration</u></strong> is working in coordination with others to convey information or tackle problems. These team working and relationship building skills should be built on a
+                                    foundation of social perceptiveness to make us all truly effective collaborators.</strong></p>
+                                     <p> We can break down collaborating into smaller skills. Reflect on each on these skills, and click one if you feel you have strength in this area:  </p> <br>
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 6 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 7 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 8 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 9 %}
+                                    <p><strong><u>Feeling</u></strong> is considering our impact on other people by being able to take a range of different perspectives, thoughts and feelings into account.
+                                        The ability to bring feeling to what we do incorporates: </p>
+                                    <ul>
+                                        <li><strong>Empathy</strong> - the ability to consider the perspective of others into order to understand their
+                                        feelings and motivations </li>
+                                        <li><strong>Social conscience</strong> - a sense of responsibility and concern for wider society </li>
+                                    </ul>
+                                    <strong>{{ field.label }}</strong> <hr>
+                                    {{ field }} <br>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

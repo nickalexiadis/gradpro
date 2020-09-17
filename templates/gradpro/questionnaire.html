@@ -1,0 +1,74 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:questionnaire' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <p>Thank you for completing the meta-skills toolkit. This short interactive workshop is
+                            designed to help you record and develop your meta-skills. The results are primarily used to
+                            help you develop your own skills, and reflect on your progress over the course of your degree.
+                            Skills Development Scotland has classified these skills under three headings: </p>
+
+                        <ul>
+                            <li><strong><u>Self management</u></strong>: Manage the now </li>
+                            <li><strong><u>Social intelligence</u></strong>: Connect with the world</li>
+                            <li><strong><u>Innovation</u></strong>: Create our own change</li>
+                        </ul>
+                        <p>We will look in more detail at these three areas.</p>
+
+
+                        <p> <strong><u>Self-Management</u></strong></p>
+
+                        {% for field in self_management_form %}
+                            {% if forloop.counter == 1 %}
+                            <p>Thinking about <strong><u>focus and concentration</u></strong>, select how much you agree/disagree with the statements below.</p>
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 2%}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 3 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 4 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 5 %}
+                                    <p>These questions will focus on <strong><u>initiative</u></strong>. Select how much you agree/disagree with the statements below.</p>
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 6 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 7 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 8 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

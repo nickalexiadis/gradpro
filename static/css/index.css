@@ -1,0 +1,49 @@
+.carousel ul {
+    margin: 0;
+    padding:0;
+    list-style-type: none;
+    overflow: hidden;
+    display-inline;
+}
+
+.carousel li {
+    float: right;
+    margin-left: 80px;
+}
+
+.carousel li a::before {
+    content: '';
+    display: block;
+    height: 10px;
+    background-color: #444;
+
+    position: absolute;
+    top: 10;
+    width: 0%;
+    transition: all ease-in-out 250ms;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.container1 {
+    margin-top: 50px;
+}
+
+.card {
+    margin-top: 150px;
+    background-color: transparent;
+    height: 120px;
+    width: 650px;
+    color: white;
+    font-size: 40px;
+    border: none;
+}
+
+body{
+    background-image: url('/static/images/students.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}

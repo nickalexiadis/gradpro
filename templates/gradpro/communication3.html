@@ -1,0 +1,55 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        {% if completed %}
+            <div class="my-form">
+                <strong>{{ completed_message }}</strong><br>
+                <a href="{% url 'gradpro:dashboard' %}">Thank you for completing the questionnaire. Return to the dashboard.</a> </br>
+            </div>
+        {% else %}
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:communication3' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <p>The following are statements about communication behaviors. Answer each item as it related to your general style of communication (the type of communicator you are most often)
+                            in social situations. Please indicate the degree to which each statement applies to you by selecting the appropriate option, according to the scale below.</p>
+
+                        <p> 1 = Never True of Me</p>
+                        <p> 2 = Rarely True of Me</p>
+                        <p> 3 = Sometimes True of Me</p>
+                        <p> 4 = Often True of Me</p>
+                        <p> 5 = Always True of Me</p>
+                        <br>
+
+                        <p> <strong><u>Articulation</u></strong></p>
+                        <hr>
+                        {{ articulation_form.as_p }}
+                        
+                         <p> <strong><u>Wit</u></strong></p>
+                        <hr>
+                        {{ wit_form.as_p }}
+
+                        <p>This survey is based on the Communicative Adaptability Scale(CAS), created by Robert L. Duran</p>
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

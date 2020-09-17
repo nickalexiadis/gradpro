@@ -1,0 +1,90 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+         {% if completed %}
+            <div class="my-form">
+                <strong>{{ completed_message }}</strong><br>
+                <a href="{% url 'gradpro:dashboard' %}">Thank you for completing the questionnaire. Return to the dashboard.</a> </br>
+            </div>
+        {% else %}
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:questionnaire3' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <p> <strong><u>Innovation</u></strong></p>
+                         {% for field in innovation_form %}
+                            {% if forloop.counter == 1 %}
+                        <p><strong><u>Sense making</u></strong> is about making sense of complex situations and doing so in real time to enable an effective response.</p>
+                                <p>Sense making is the ability to determine the deeper meaning or significance of what is being expressed and to recognise wider themes and patterns in information and situations.</p>
+                                <p>We can break down sense making into smaller skills. Reflect on each on these skills, and click if you feel you have strength in this area. </p>
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 2%}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 3 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 4 %}
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 5 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 6 %}
+                            <p>Thinking about <strong><u>curiosity</u></strong> reflect on these ideas </p>
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 7 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 8 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 9 %}
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                            {% elif forloop.counter == 10 %}
+                        <p><strong><u>Creativity</u></strong> is the ability to imagine and think of new ways of addressing problems, answering questions or expressing meaning and is another quality we are born with (Meng, 2016).
+                                    The financial sector will need to look to individuals who are highly creative to come up with the new ideas that will help them stay current and compete (PwC). The ability to be creative incorporates: </p>
+                                <ul>
+                                    <li><strong>Imagination</strong> - the ability to explore ideas of things that are not in our present environment, or perhaps not even real</li>
+                                    <li><strong>Idea generation</strong> - proficiency at thinking and coming up with solutions and responses beyond that which is rote or rule-based  </li>
+                                    <li><strong>Visualising</strong> - translating information and thought into accessible expressions, and readable and recognisable images   </li>
+                                    <li><strong>Maker mentality</strong> - the ability to explore, through tinkering and making, in order to arrive at new ideas and solutions    </li>
+                                </ul>
+                                <strong>{{ field.label}}</strong> <hr>
+                                {{ field }} <br>
+                            {% elif forloop.counter == 11 %}
+                                    <p>With the abundance of information we now have available to us, being able to process, analyse and evaluate this in order to solve problems is increasingly important.
+                                        Weighing up conflicting arguments using logical thinking tools and being able to make use of these tools in a variety of contexts will enable us to do this in complex and ever changing environments.</p>
+                                    <p> With the increasing volume of information available online from a wide variety of sources, critical thinking is also required at a more basic level to help us tell fact from fiction.  </p>
+                                    <p><strong><u>Critical thinking</u></strong> is the ability to evaluate and draw conclusions from information in order to solve complex problems and make decisions.</p>
+                                    <strong>{{ field.label}}</strong> <hr>
+                                    {{ field }} <br>
+                        <p>This toolkit was developed from Skills Development Scotland report:  Skills 4.0 A skills model to drive Scotland’s future (2018) </p>
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

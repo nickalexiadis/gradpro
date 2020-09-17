@@ -1,0 +1,343 @@
+{%extends 'gradpro/base.html'%}
+{% load staticfiles %}
+
+{% block title_block %}
+    {{ user_obj.first_name }} Dashboard
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <script src="{% static 'javascript/dashboard.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="container">
+        <div class="row">
+            <div class="col-8-fluid">
+                <center>
+                    </br> <h3>Greetings <strong>{{ user_obj.first_name }} {{ user_obj.last_name }}!</strong> This is your Dashboard</h3>
+                </center>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+    <div class="container">
+        <h5 class="left">Here you can see how you scored in the questionnaires, review your progress, read suggestions on
+            how to improve certain meta-skills, and retake the surveys. There are currently <strong>3</strong> available tests.
+            The <strong>general metaskills</strong> assessment, the <strong>communications</strong> test and the <strong>adaptability</strong> test.
+            Click the respective buttons to see more information!</h5><br>
+
+        <button class="metaBtn btn btn-primary" >General Metaskills Test</button><br><br>
+
+        <div class="metaskillsTest">
+            <p class="left">The general metaskills test will measure your self-management, social intelligence and innovation skills. According to
+            Skills Development Scotland, these meta-skills can provide you with a great foundation to navigate the future workforce.
+            Besides a general score for each metaskill, you will receive a score for each subskill of these meta-skills. Some of these subskills,
+            like communication and adaptability can be measured more accurately with individual tests that you can take below.</p>
+
+        {% if no_data %}
+            {{ no_data }}
+        {% else %}
+            <h4>Metaskills results</h4> <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ bar_chart|safe }}">
+                </div>
+                 <div class="col-sm">
+                     <img src="data:image/png;base64,{{ line_chart|safe }}">
+                </div>
+            </div> <br>
+
+
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ self_graph|safe }}">
+                </div>
+                 <div class="col-sm">
+                    <img src="data:image/png;base64,{{ social_graph|safe }}">
+                </div>
+            </div> <br>
+                <img src="data:image/png;base64,{{ inno_graph|safe }}"><br>
+            <hr>
+
+            <div class="left">
+            {% if self_management.score < 3 %}
+                {% if self_management.score == 2 %}
+                <p><strong>Your self-management skill is <span class="red">below average</span></strong></p>
+                {% elif self_management.score == 1 %}
+                <p><strong>Your self-management skill is <span class="red">low</span></strong></p>
+                {% endif %}
+
+                {% if self_management.concentration_score < 2 %}
+                    <p><u>Concentration</u></p>
+                    <p>To improve your concentration you can try:</p>
+                    <ul>
+                        <li>Training your brain: Sudoku, crossword puzzles, chess, etc are activities than can help improve your focus</li>
+                        <li>Getting more hours of sleep: experts recommend 7 to 8 hours each night for optimal cognitive function</li>
+                        <li>Exercise: Studies show regular exercise can improve concentration and attention after just 4 weeks</li>
+                        <li>Limit your focus: While multitasking might appear as a good way to save time, it can very easily cut down on productivity and make it harder to focus on the important details</li>
+                        <li>Minimize distractions: Whether noise, a cluttered desk or tv playing the background, distractions prevent your from fully focusing on the task at hand</li>
+                    </ul>
+                {% endif %}
+                {% if self_management.adaptability_score < 2 %}
+                    <p><u>Adaptability</u></p>
+                    <p>To get a better understanding of your adaptability, take the adaptability test below</p>
+                {% endif %}
+                {% if self_management.initiative_score < 2 %}
+                    <p><u>Initiative</u></p>
+                    <p>To improve your initiative:</p>
+                    <ul>
+                        <li>Go above and beyond the call of duty: While performing your delegated tasks is important, by itself it won't make you stand out.
+                        To be truly exceptional you have to act exceptional and take on extra challenges</li>
+                        <li>Think as a team member, not an employee: You can't truly devote yourself to something that you don't consider yours.
+                        If you personally invest in your work or another activity and consider each success and achievement yours, you're far more likely to be motivated to take initiative
+                        and perform to a high standard</li>
+                        <li>Fake it till you make it: While some people are naturally confident, for most, confidence comes as a result of success. If you are afraid of failing you will never take on a challenging task.
+                        So try to convince yourself and act confident on your abilities in order to get that much needed first push towards success.</li>
+                    </ul>
+                    <hr>
+                {% endif %}
+            {% endif %}
+
+            {% if social_intelligence.score < 3 %}
+
+                {% if social_intelligence.score == 2 %}
+                <p><strong>Your social intelligence skill is <span class="red">below average</span></strong></p>
+                {% elif social_intelligence.score == 1 %}
+                <p><strong>Your social intelligence skill is <span class="red">low</span></strong></p>
+                {% endif %}
+
+                {% if social_intelligence.communication_score < 2 %}
+                    <p><u>Communication</u></p>
+                    <p>To get a better understanding of your communication skills, take the communication test below</p>
+                {% endif %}
+                {% if social_intelligence.collaborating_score < 2 %}
+                    <p><u>Collaborating</u></p>
+                    <p>To improve your collaborating skills you can try: </p>
+                    <ul>
+                        <li>Team building games: Games are one of the best and most fun ways to build new relationships or amend old ones</li>
+                        <li>Socializing outside of work: Getting to know your coworkers in a more relaxed environment can boost interdependence and improve
+                        team collaboration and communication</li>
+                        <li>Creating a shared vision and purpose: By using everyone's input to set goals and define work processes, you can inspire others to make a meaningful
+                        contribution in the team setting</li>
+                    </ul>
+                {% endif %}
+                {% if social_intelligence.feeling_score < 2 %}
+                    <p><u>Feeling</u></p>
+                    <p>The most crucial aspect of feeling is empathy, the ability to consider the perspective of others into order to understand their feelings and motivations. To improve your empathy you can:</p>
+                    <ul>
+                        <li>Cultivate curiosity about strangers: Highly empathic people (HEPs) have an insatiable curiosity about strangers.
+                            They will talk to the person sitting next to them on the bus, having retained that natural inquisitiveness we all had as children, but which society is so good at beating out of us</li>
+                        <li>Challenge prejudices and discover commonalities: We all have assumptions about others and use collective labels, that prevent us from appreciating their individuality.
+                            HEPs challenge their own preconceptions and prejudices by searching for what they share with people rather than what divides them.</li>
+                        <li>Listen - and open up: Our ability to be present to what’s really going on within —to the unique feelings and needs a person is experiencing in that very moment is crucial to empathy.
+                            But just as important is removing our own masks and revealing our own feelings and thoughts. Empathy is a two-way street.</li>
+                    </ul>
+                <hr>
+                {% endif %}
+            {% endif %}
+
+            {% if innovation.score < 3 %}
+
+                {% if innovation.score == 2 %}
+                <p><strong>Your innovation skill is <span class="red">below average</span></strong></p>
+                {% elif innovation.score == 1 %}
+                <p><strong>Your innovation skill is <span class="red">low</span></strong></p>
+                {% endif %}
+
+                {% if innovation.sense_making_score < 2 %}
+                    <p><u>Sense Making</u></p>
+                    <p>To improve sense-making: </p>
+                    <ul>
+                        <li>Seek out many types and sources of data: We learn the most about events or issues when we view them from a variety of perspectives.</li>
+                        <li>Involve others as you try to make sense of any situation: Your own mental model of what is going on can only get better as it is tested and modified through interaction with others</li>
+                        <li>Move beyond stereotypes: Rather than oversimplifying try to understand the nuances of each particular situation. Try to "see things with new eyes"</li>
+                    </ul>
+                {% endif %}
+                {% if innovation.curiosity_score < 2 %}
+                    <p><u>Curiosity</u></p>
+                    <p>To improve curiosity: </p>
+                    <ul>
+                        <li>Enter with a clear mind: Don’t assume you know how everything works. Pretend you’re a child. Children have a wonderful sense of curiosity because they don’t have the life experience that allows them to assume things. </li>
+                        <li>Ask Questions: Even little, seemingly obvious questions can lead to bigger, revealing questions.
+                            There’s no shame in not knowing all of the answers. Asking questions will show that you are engaged rather than uninformed. </li>
+                        <li>Become Familiar with Encountering the Unfamiliar: It’s easy to stay in your comfort zone, but the problem is that you’re familiar with your comfort zone.
+                            You can naturally become more curious by leaving your bubble of safety</li>
+                        <li>Diversify Your interests: People tend to be creatures of habit, following certain routines, cooking specific recipes, listening to a specific genre of music.
+                            To become a more curious person is necessary to try out new things, hobbies and interests</li>
+                    </ul>
+                {% endif %}
+                {% if innovation.creativity_score < 2 %}
+                    <p><u>Creativity</u></p>
+                    <p>To improve creativity: </p>
+                    <ul>
+                        <li>Do some physical activity: Research from the University of Hertfordshire, coupled with research from Stanford University,
+                            has shown that by ‘letting yourself go’ through exercise can allow you to boost your creativity.
+                            Walking and running were seen to expose participants to an array of different environmental cues that stimulated the brains imagination and thus creativity.</li>
+                        <li>Listen to music that makes you feel good: Music can give your mood, and through it your creativity, a boost</li>
+                        <li>Change your surroundings: This technique can range from simply rearranging your desk to taking the opportunity
+                        to working  in different areas of your workplace or talking with new colleagues</li>
+                        <li>Record new ideas that come to you, no matter how unimportant they might at first appear to be. Their real value could show after further evaluation</li>
+                    </ul>
+                {% endif %}
+                {% if innovation.critical_thinking_score < 2 %}
+                    <p><u>Critical Thinking</u></p>
+                    <p>To improve critical thinking: </p>
+                    <ul>
+                        <li>Become more self-aware and understand your mental process: This involves considering your values, ethics, morals
+                        and other beliefs, as well as your prejudices and the ways the might affect how you receive, process and judge incoming information.</li>
+                        <li>Ask questions and consider motive: Obtaining more information and looking at a situation from different perspectives is necessary to develop critical thinking.
+                        But it is not enough as it is always important to consider the other person's motive and interests in conjunction with their claims</li>
+                        <li>Let go of ego and evaluate existing evidence: Most people are too proud to reconsider long-held beliefs and truths even when they clash with new information.
+                        In order to truly develop critical thinking one must try to remain as objective as possible, combining both previous experience and new information to formulate their beliefs.
+                        Rejecting dogmatism and keeping an open mind and doubts is ket to becoming a critical thinker.</li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+
+            </div>
+        {% endif %}
+        <hr>
+        <a href="{% url 'gradpro:questionnaire' %}"><button type="submit" name="submit" class="btn btn-primary login-btn btn-block">(Re)Take the general metaskills test</button></a> </br>
+        <br>
+        </div>
+
+        <button class="comBtn btn btn-success" >Communication Test</button><br><br>
+
+        <div class="communicationTest">
+          <p class="left">The communication test will give you a better view of your communication abilities, with individual scores for how you
+              adapt to different social contexts.</p>
+            <ul class="left">
+                <li>Social experience: Your desire and experience with communication in new situations</li>
+                <li>Social composure: Your ability to remain composed in social situations</li>
+                <li>Social confirmation: Understanding and acknowledging another party's projected self-image</li>
+                <li>Appropriate disclosure: Your sensitivity to social cues as an indication of how much you should siclose</li>
+                <li>Articulation: Your ability to express yourself clearly</li>
+                <li>Wit: Your level of mastery over humour and its appropriate use in social contexts</li>
+            </ul>
+
+        {% if no_comdata %}
+            {{ no_comdata }}
+        {% else %}
+            <h4>Communication results</h4> <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ com_bar_chart|safe }}">
+                </div>
+                 <div class="col-sm">
+                     <img src="data:image/png;base64,{{ com_line_chart|safe }}">
+                </div>
+            </div> <br>
+
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ com_graphic|safe }}">
+                </div>
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ com_graphic_average|safe }}">
+                </div>
+            </div>  <hr>
+
+            <div class="left">
+            {% if communication.score < 3 %}
+                {% if communication.score == 2 %}
+                <p><strong>Your communication skill is <span class="red">below average</span></strong></p>
+                {% elif communication.score == 1 %}
+                <p><strong>Your communication skill is <span class="red">low</span></strong></p>
+                {% endif %}
+
+                <p>Effective communication skills are fundamental to success in many aspects of life, including career.
+                There are three main areas of communication skills that can greatly contribute to more successful interactions with others: </p>
+                <ul>
+                    <li><strong>Listening</strong></li>
+                    <p>One of the most common mistakes in communication is to spend a lot of time talking about the things we want, thus turning a potential dialogue
+                    into a monologue. It is important to let the other party also express their opinions. But listening isn't simply a passive process of hearing. It involves actively trying to decode
+                    what the other party is trying to convey, giving them verbal and non-verbal feedback, asking for clarifications and in general being actively involved in the conversation.</p>
+                    <li><strong>Understanding non-verbal communication</strong></li>
+                    <p>Various estimates suggest that non-verbal cues might account for 80% of the information conveyed in conversations. As such, being able to
+                    consider, understand and properly use non-verbal communication is crucial to becoming an effective communicator. Non-verbal communication includes body language, tone and pitch of the voice,
+                    eye contact, posture, facial expressions and even physiological changes such as blushing.</p>
+                    <li><strong>Being emotionally aware and managing your emotions</strong></li>
+                    <p>The workplace is usually seen as a cold and logical place where there is no room for emotions. However, even in a business setting, emotions are important and can determine the quality of teamwork and
+                    the performance of employees. Emotional Intelligence covers both personal and social skills. Personal skills include being self-aware, confident and motivated. From social skills the most important one that
+                    needs to be cultivated is empathy. The ability to "wear another person's shoes" and see the world and specific situations from their side. Developing empathy can greatly improve tolerance and the quality of relationships.</p>
+                </ul>
+            {% endif %}
+            </div>
+        {% endif %}
+        <hr>
+        <a href="{% url 'gradpro:communication' %}"><button type="submit" name="submit" class="btn btn-primary login-btn btn-block">(Re)Take the communication test</button></a> </br>
+         <br>
+        </div>
+
+        <button class="adaBtn btn btn-danger" >Adaptability Test</button><br><br>
+
+        <div class="adaptabilityTest">
+            <p class="left">The adaptability test measures your adaptability skill, and includes individual scores for each dimension of adaptability
+            as it might differ in various contexts</p>
+         {% if no_adadata %}
+            {{ no_adadata }}
+          {% else %}
+
+            <h4>Adaptability results</h4> <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ ada_bar_chart|safe }}">
+                </div>
+                 <div class="col-sm">
+                     <img src="data:image/png;base64,{{ ada_line_chart|safe }}">
+                </div>
+            </div> <br>
+
+            <div class="row">
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ ada_graphic|safe }}">
+                </div>
+                <div class="col-sm">
+                    <img src="data:image/png;base64,{{ ada_graphic_average|safe }}">
+                </div>
+            </div>
+
+            <div class="left">
+            {% if adaptability.score < 3 %}
+                {% if adaptability.score == 2 %}
+                <p><strong>Your adaptability skill is <span class="red">below average</span></strong></p>
+                {% elif adaptability.score == 1 %}
+                <p><strong>Your adaptability skill is <span class="red">low</span></strong></p>
+                {% endif %}
+
+                <p>During the past decades there has been a drastic shift in the workforce from manufacturing to knowledge-based work. Largely as a result of technological advances and increasing demands for multi-tasking,
+                it is expected that average employee will have to change careers more than once in their lifetime, requiring constant education and flexibility. As such, the importance of adaptability
+                as a prime meta-skill of a young graduate becomes ever greater. There are certain steps that can be taken to help improve adaptability:</p>
+                <ul>
+                    <li><strong>Observe and monitor changes in your environment</strong></li>
+                    <p>You will not see the need for a change until you notice changes in your environment. Adaptability must not be easy only but timely as well. Always make a conscious effort to monitor trends, values, attitudes etc.
+                        Compare present observations with past ones and find out what has changed.</p>
+                    <li><strong>Be willing to learn</strong></li>
+                    <p> Observation alone is not enough. If the result of your observations suggests you need to learn something new, do not hesitate to do so. While you can learn some things on your own when
+                        equipped with appropriate educational resources, others may require help from specialists.</p>
+                    <li><strong>Avoid procrastination</strong></li>
+                    <p>Don’t just be willing to learn. Take the necessary course of action. Remember that adaptations are more effective when the action is taken earlier.</p>
+                    <li><strong>Don’t get too attached to a single plan or strategy</strong></li>
+                    <p>Have Plan B (and C) at the ready.</p>
+                    <li><strong>Immerse yourself in new environments and situations</strong></li>
+                    <p>Do this when you are confronted by change — but get practice by joining activities, meeting new people, and trying new things on a regular basis.</p>
+                    <li><strong>Learn to acknowledge and accept change</strong></li>
+                    <p>It can be highly beneficial to let yourself accept change as it occurs. Learning to acknowledge changes in your career can help you prepare yourself and adapt to differing circumstances.
+                        Additionally, learning how to be willing to accept change can be an effective step toward recognizing when you need to make adjustments to make transitions smoother for yourself.</p>
+                </ul>
+            {% endif %}
+            </div>
+        {% endif %}
+        <hr>
+        <a href="{% url 'gradpro:adaptability' %}"><button type="submit" name="submit" class="btn btn-primary login-btn btn-block">(Re)Take the adaptability test</button></a> </br>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

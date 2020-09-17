@@ -1,0 +1,42 @@
+{% extends 'gradpro/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+   Welcome! Please complete the survey below, answering all questions
+{% endblock %}
+
+{% block head_block %}
+    <link rel="stylesheet" href="{% static 'css/questionnaire.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <div class="centered">
+            <div class="centered">
+                <div class="my-form left">
+                    <form id = "survey_form" method = "post" action = "{% url 'gradpro:adaptability4' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <p>This survey asks a number of questions about your preferences, styles, and habits at work. Read each statement carefully.
+                            Then, for each statement select the corresponding number that best represents your opinion. There are no right or wrong answers. </p>
+
+                        <p> 1 = Strongly disagree</p>
+                        <p> 2 = Disagree</p>
+                        <p> 3 = Neither agree nor disagree</p>
+                        <p> 4 = Agree</p>
+                        <p> 5 = Strongly agree</p>
+                        <br>
+
+                        <hr>
+                        {{ adaptability_fourth_form.as_p }}
+                        <p>Page 4 of 5</p>
+
+                        <div class="form-group">
+                            <button type="submit" name="submit" class="btn btn-primary login-btn btn-block">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

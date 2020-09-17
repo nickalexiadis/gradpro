@@ -1,0 +1,11 @@
+body {
+  background: #A3B1B2;
+}
+
+.custom-radio-list {
+    list-style-type: none;
+    padding: 1000;
+    margin: 0;
+}
+
+
